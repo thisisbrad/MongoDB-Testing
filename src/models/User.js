@@ -14,7 +14,7 @@ const UserSchema = new Schema({
     }
   },
   posts: [PostSchema],
-  blogPost: [{ type: Schema.Types.ObjectId, ref: 'blogPost' }],
+  blogPosts: [{ type: Schema.Types.ObjectId, ref: 'blogPost' }],
   likes: Number
 });
 
