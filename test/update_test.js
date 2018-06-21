@@ -9,35 +9,29 @@ describe('Updating Users from the database', () => {
     await bob.save();
   });
 
-  const assertName = (operation, done) => {
-    operation.then(() => User.find({})).then(users => {
-      assert(users.length === 1);
-      assert(users[0].name === 'Alex');
-      done();
-    });
+  const assertName = async operation => {
+    await operation;
+    const users = await User.find({});
+    assert(users.length === 1);
+    assert(users[0].name === 'Alex');
   };
 
-  it('asserts with helper function', done => {
+  it('asserts with helper function', async () => {
     // testing helper
     bob.set('name', 'Alex');
-    assertName(bob.save(), done);
+    await assertName(bob.save());
   });
 
-  it('updates by instance using set n save', done => {
+  it('updates by instance using set n save', async () => {
     // Update record using set and save methods
     bob.set('name', 'Alex');
-    bob
-      .save()
-      .then(() => User.find({}))
-      .then(users => {
-        assert(users.length === 1);
-        assert(users[0].name === 'Alex');
-        done();
-      });
+    await bob.save();
+    const users = await User.find({});
+    assert(users.length === 1);
+    assert(users[0].name === 'Alex');
   });
 
-  it('updates by instance model', done => {
-    //
-    assertName(bob.update({ name: 'Alex' }), done);
+  it('updates by instance model', async () => {
+    await assertName(bob.update({ name: 'Alex' }));
   });
 });
