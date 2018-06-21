@@ -5,7 +5,7 @@ describe('Updating Users from the database', () => {
   let bob;
 
   beforeEach(async () => {
-    bob = await new User({ name: 'Bob', postCount: 0 });
+    bob = await new User({ name: 'Bob', likes: 0 });
     await bob.save();
   });
 
@@ -56,12 +56,12 @@ describe('Updating Users from the database', () => {
     assertName(User.findByIdAndUpdate(bob._id, { name: 'Alex' }), done);
   });
 
-  xit('can increment postcount by 1', done => {
+  it('can increment likes by 1', done => {
     //
-    User.update({ name: 'Bob' }, { $inc: { postCount: 1 } })
+    User.update({ name: 'Bob' }, { $inc: { likes: 1 } })
       .then(() => User.findOne({ name: 'Bob' }))
       .then(user => {
-        assert(user.postCount === 1);
+        assert(user.likes === 1);
         done();
       });
   });
