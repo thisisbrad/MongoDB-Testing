@@ -5,7 +5,7 @@ describe('Updating Users from the database', () => {
   let bob;
 
   beforeEach(async () => {
-    bob = await new User({ name: 'Bob' });
+    bob = await new User({ name: 'Bob', postCount: 0 });
     await bob.save();
   });
 
@@ -36,8 +36,28 @@ describe('Updating Users from the database', () => {
       });
   });
 
-  it('updates by instance model', done => {
+  it('updates by model instance', done => {
     //
     assertName(bob.update({ name: 'Alex' }), done);
+  });
+
+  it('updates by model class', done => {
+    //
+    assertName(User.update({ name: 'Bob' }, { name: 'Alex' }), done);
+  });
+
+  it('can find and update by model class', done => {
+    //
+    assertName(User.findOneAndUpdate({ name: 'Bob' }, { name: 'Alex' }), done);
+  });
+
+  it('can find and update with ID by model class', done => {
+    //
+    assertName(User.findByIdAndUpdate(bob._id, { name: 'Alex' }), done);
+  });
+
+  it('inc', () => {
+    //
+    User.update({ name: 'Bob' }, { $inc: { postCount: 1 } });
   });
 });
