@@ -56,7 +56,7 @@ describe('Updating Users from the database', () => {
     assertName(User.findByIdAndUpdate(bob._id, { name: 'Alex' }), done);
   });
 
-  it('can increment postcount by 1', done => {
+  xit('can increment postcount by 1', done => {
     //
     User.update({ name: 'Bob' }, { $inc: { postCount: 1 } })
       .then(() => User.findOne({ name: 'Bob' }))
