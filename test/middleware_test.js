@@ -20,7 +20,7 @@ describe('associations', () => {
     Promise.all(saveRequests).then(() => done());
   });
 
-  it.only("cleans up user's dangling blogposts on remove", done => {
+  it("cleans up user's dangling blogposts on remove", done => {
     //
     bob
       .remove()
