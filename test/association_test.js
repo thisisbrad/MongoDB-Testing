@@ -36,7 +36,7 @@ describe('associations', () => {
       });
   });
 
-  it.only('save a full relation graph bewteen User, BlogPost, Comment', done => {
+  it('save a full relation graph bewteen User, BlogPost, Comment', done => {
     //
     User.findOne({ name: 'Bob' })
       .populate({
