@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
 const assert = require('assert');
 const User = require('../src/models/User');
-const Comment = require('../src/models/Comment');
 const BlogPost = require('../src/models/BlogPost');
 
 describe('associations', () => {
   let bob;
   let blogPost;
-  let comment;
   beforeEach(done => {
     //
     bob = new User({ name: 'Bob' });
@@ -22,7 +20,14 @@ describe('associations', () => {
     Promise.all(saveRequests).then(() => done());
   });
 
-  it.only('winning', () => {
+  it.only("cleans up user's dangling blogposts on remove", done => {
     //
+    bob
+      .remove()
+      .then(() => BlogPost.count())
+      .then(count => {
+        assert(count === 0);
+        done();
+      });
   });
 });
