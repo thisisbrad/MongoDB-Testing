@@ -21,3 +21,15 @@ beforeEach(done => {
     });
   });
 });
+
+after(done => {
+  // Clear everything at the end
+  const { users, comments, blogposts } = mongoose.connection.collections;
+  users.drop(() => {
+    comments.drop(() => {
+      blogposts.drop(() => {
+        done();
+      });
+    });
+  });
+});

@@ -51,7 +51,6 @@ describe('associations', () => {
         }
       })
       .then(user => {
-        //
         // console.log('???', user.blogPosts[0].comments[0]);
         assert(user.name === 'Bob');
         assert(user.blogPosts[0].title === 'Best Burgers');
